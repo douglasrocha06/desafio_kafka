@@ -3,12 +3,12 @@ global:
   evaluation_interval: 5s
 
 scrape_configs:
-  - job_name: 'prometheus_testando'
+  - job_name: 'prometheus'
     scrape_interval: 10s
     static_configs:
       - targets: ['localhost:9090']
 
-  - job_name: 'jmx_exporter_kafka'
+  - job_name: 'kafka'
     scrape_interval: 10s
     static_configs:
-      - targets: ['localhost:8082']
+      - targets: ['192.168.0.87:8082']
