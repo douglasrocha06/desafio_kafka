@@ -51,20 +51,18 @@ services:
       - monitor-net
 
   kafka:
-    image: confluentinc/cp-kafka:latest
+    image: douglasrocha06/kafka-metrics:latest
     container_name: kafka
     depends_on:
       - zookeeper
     ports:
-      - 29092:29092
+      - "8082:8082"
     environment:
+      EXTRA_ARGS: "-javaagent:/etc/kafka/jmx_prometheus_javaagent-0.16.1.jar=8082:/etc/kafka/kafka-2_0_0.yml"
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
-      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-      EXTRA_ARGS: "-javaagent:/etc/kafka/jmx_prometheus_javaagent-0.12.0.jar=8081:/etc/kafka/kafka-2_0_0.yml"
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+
     networks:
       - monitor-net
 
